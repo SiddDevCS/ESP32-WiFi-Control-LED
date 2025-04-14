@@ -1,5 +1,13 @@
 #include <WiFi.h>
 
+/*
+Hi this is a custom ESP32 Wifi control which I made for my iPhone and which runs on my local network :)
+Feel free to copy the project and play around with the LEDS on your ESP32!
+
+Keep in mind that not every ESP32 has LEDS ;)
+*/
+
+// custom password/name can be put here :)
 const char *ssid = "ESP32_Control";
 const char *password = "12345678";
 
@@ -15,6 +23,7 @@ void setup() {
   digitalWrite(ledPin, LOW);
   
   WiFi.softAP(ssid, password);
+  // yes
   
   Serial.println("Wi-Fi Access Point Started!");
   Serial.print("IP Address: ");
@@ -41,7 +50,7 @@ void loop() {
     Serial.println("LED turned OFF");
   }
 
-  // HTML webpage
+  // custom html/css webpage
   String webpage = "<html>\
   <head>\
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>\
@@ -69,14 +78,15 @@ void loop() {
   </body>\
 </html>";
 
-  // send the webpage to the client
+  // sending the webpage to the client
   client.println("HTTP/1.1 200 OK");
   client.println("Content-type:text/html");
   client.println();
   client.println(webpage);
   client.println();
-  
-  delay(10);  // timing
+
+  // timing and others
+  delay(10);
   client.stop();
   Serial.println("Client disconnected");
 }
